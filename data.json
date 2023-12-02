@@ -1,0 +1,126 @@
+{
+    "syn_only":
+    {
+        "protocol":["IP", "TCP"],
+        "packets":
+        [
+            {
+                "source_mac": "",
+                "destination_mac": "",
+                "source_ip":"192.168.0.247",
+                "destination_ip":"192.168.0.111",
+                "destination_port": 80,
+                "flags":
+                {
+                    "tcp_flags":["SYN"],
+                    "retransmit":0,
+                    "no_wait":true
+                }                
+            }
+        ],
+        "additional_params":
+        {
+            "retransmit":-1            
+        }
+    },
+    "udp_data":
+    {
+        "protocol":["IP", "UDP"],
+        "packets":
+        [
+            {
+                "source_mac": "",
+                "destination_mac": "",
+                "source_ip":"192.168.0.247",
+                "destination_ip":"192.168.0.111",
+                "destination_port": 80,
+                "flags":
+                {
+                    "retransmit":0,
+                    "no_wait":true
+                },                              
+                "payload":""
+            }
+        ],
+        "additional_params":
+        {
+            "retransmit":50            
+        }
+    },
+    "handshake":
+    {
+        "protocol":["IP", "TCP"],
+        "packets":
+        [
+            {
+                "source_mac": "",
+                "destination_mac": "",
+                "source_ip":"192.168.0.247",
+                "destination_ip":"192.168.0.111",
+                "destination_port": 80,
+                "flags":
+                {
+                    "tcp_flags":["syn"]
+                }         
+            },
+            {
+                "flags":
+                {
+                    "tcp_flags":["ack"],
+                    "no_wait":1
+                }            
+            },
+            {
+                "flags":
+                {
+                    "tcp_flags":["psh", "ack"],
+                    "no_wait":1
+                },
+                "payload":""
+            }
+        ],
+        "additional_params":
+        {
+            "retransmit":50            
+        }
+    },
+    "handshake-local":
+    {
+        "protocol":["IP", "TCP"],
+        "packets":
+        [
+            {
+                "interface": "eth0",
+                "source_ip":"192.168.1.155",
+                "destination_ip":"192.168.1.1",
+                "source_port": 333,
+                "destination_port": 80,
+                "flags":
+                {
+                    "tcp_flags":["syn"],
+                    "no_wait":true
+                }            
+            },
+            {
+                "interface": "eth1",
+                "source_ip":"192.168.1.1",                
+                "destination_ip":"192.168.1.155",
+                "source_port": 80,
+                "destination_port": 333,
+                "flags":
+                {
+                    "tcp_flags":["syn-ack"],
+                    "no_wait":true
+                }
+            },
+            {
+                "interface": "eth0",
+                "flags":
+                {
+                    "tcp_flags":["ack"],
+                    "no_wait":true
+                }
+             }
+        ]
+    }
+}
