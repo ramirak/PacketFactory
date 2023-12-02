@@ -4,8 +4,6 @@ from validations import *
 import random
 
 def prepare_packet(profile_data, pkt):
-    print("Preparing packet..")
-
     l2, l3, l4, l5 = None, None, None, None
 
     # START LAYER 2
@@ -168,15 +166,19 @@ def combine_layers(l2, l3, l4, l5):
 
 
 def send_packet(packet, no_wait, is_tcp):
-    print("Sending packet..")
+    print("Sending packet: " + CACHED_DATA["source_ip"] + " : " + str(CACHED_DATA["source_port"]) + " -> " + CACHED_DATA["destination_ip"] + " : " + str(CACHED_DATA["destination_port"]))
     if(no_wait):
         send(packet, verbose=False)
       #  TCP_PUSH=TCP(sport=CACHED_DATA["source_port"], dport=CACHED_DATA["destination_port"], flags="PA", seq=CACHED_DATA["sequence_number"], ack=CACHED_DATA["acknowledge_number"])
       #  send(IP(src=CACHED_DATA["source_ip"], dst=CACHED_DATA["destination_ip"])/TCP_PUSH/"test")
         return
-    res = sr1(packet, timeout=1, verbose=False)
+    res = sr1(packet, timeout=2, verbose=False)
     if is_tcp and res != None:
         CACHED_DATA["sequence_number"] = res.ack
         CACHED_DATA["acknowledge_number"] = res.seq + 1
     if res == None:
-        print("Got no response.")
+        print("** Got no response **")
+        return False
+    return True
+
+

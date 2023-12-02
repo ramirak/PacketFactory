@@ -68,7 +68,10 @@ def main():
                 pkt_flags = pkt["flags"]
                 if "no_wait" in pkt_flags:
                     no_wait = pkt_flags["no_wait"]
-            send_packet(p, no_wait, is_tcp)
+            if not send_packet(p, no_wait, is_tcp):
+                # No response, no need to try next packets.
+                break
+
         CACHED_DATA["source_port"] = random.randint(1024, 65535)
 
 def get_all_data():

@@ -20,7 +20,7 @@
         ],
         "additional_params":
         {
-            "retransmit":-1            
+            "retransmit":5            
         }
     },
     "udp_data":
